@@ -1,0 +1,31 @@
+create database pawsome;
+use pawsome;
+
+create table user(id int auto_increment primary key,fname varchar(25),lname varchar(25),mobile varchar(12),email varchar(25),uname varchar(25),password varchar(25),location_id int,pimage varchar(255));
+desc location;
+
+create table location(loc_id int unique not null ,location_name varchar(25),location_pincode int,foreign key(loc_id) references user(id));
+
+create table feeds(feed_id int auto_increment primary key,fimage varchar(255),caption varchar(255),comments varchar(255),like_counter int, uid int, foreign key(uid) references user(id));
+
+create table dog(dog_id int auto_increment primary key, dog_name varchar(50),dog_image varchar(255),dog_age int,dog_status boolean );
+
+show tables;
+
+create table adoption(adoption_id int auto_increment primary key, dog_id int ,uid int, foreign key(dog_id) references dog(dog_id), foreign key(uid) references user(id));
+
+create table doctor(dr_id int auto_increment primary key,uid int,location_id int,foreign key(uid) references user(id), foreign key(location_id) references location(loc_id));
+
+create table appointment(appointment_id int auto_increment primary key,appointment_slot time, uid int,dr_id int, foreign key(appointment_id) references user(id),foreign key(appointment_id) references doctor(dr_id));
+
+
+alter table doctor add basic_fees int,add clinic_time time;
+
+create table community(cid int auto_increment primary key,community_name varchar(100),cloc int,foreign key(cloc) references location(loc_id));
+
+create table hostel(hid int auto_increment primary key,hostel_name varchar(100),hloc int,foreign key(hloc) references location(loc_id));
+
+alter table user add role varchar(50);
+
+
+create table admin (id int primary key auto_increment,fname varchar(45),lname varchar(45),email varchar(45), password varchar(100),phone varchar(12),dob varchar(10)); 
